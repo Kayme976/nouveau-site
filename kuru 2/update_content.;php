@@ -1,0 +1,26 @@
+<?php
+session_start();
+
+// Verifier le mot de passe
+if (isset($_POST['password']) && $_POST['password'] === 'votre_mot_de_passe') {
+    $_SESSION['authenticated'] = true;
+}
+
+// Sauvegarder le contenu modifie
+if (isset($_SESSION['authenticated']) && $_SESSION['authenticated'] === true && isset($_POST['header_title']) && isset($_POST['header_description'])) {
+    $header_title = htmlspecialchars($_POST['header_title']);
+    $header_description = htmlspecialchars($_POST['header_description']);
+    
+    $content = "<?php\n\$header_title = \"$header_title\";\n\$header_description = \"$header_description\";\n";
+    
+    file_put_contents('content_data.php', $content);
+    header('Location: admin.php');
+    exit();
+}
+
+// Redirection si non authentifie
+if (!isset($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) {
+    header('Location: admin.php');
+    exit();
+}
+?>

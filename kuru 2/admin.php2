@@ -1,0 +1,37 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) {
+    header('Location: login.php');
+    exit();
+}
+
+include 'content.php';
+?>
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administration</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Administration</h1>
+    </header>
+    <main>
+        <form action="update_content.php" method="post">
+            <label for="header_title">Titre de l'accueil :</label>
+            <input type="text" id="header_title" name="header_title" value="<?php echo $header_title; ?>" required>
+            <label for="header_description">Description de l'accueil :</label>
+            <textarea id="header_description" name="header_description" required><?php echo $header_description; ?></textarea>
+            <button type="submit">Mettre à jour</button>
+        </form>
+        <form action="logout.php" method="post">
+            <button type="submit">Déconnexion</button>
+        </form>
+    </main>
+</body>
+</html>

@@ -1,0 +1,1 @@
+INSERT INTO users (username, password) VALUES ('admin', PASSWORD('votre_mot_de_passe'));
